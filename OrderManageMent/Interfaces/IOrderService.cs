@@ -2,9 +2,7 @@ namespace OrderManageMent.Interfaces;
 
 internal interface IOrderService
 {
-    Customer AddCustomer();
-
-    Orders? CreateOrder(Customer customer);
+    Orders? CreateOrder(Customer customer, List<OrderItem> items);
 
     List<Orders> GetAllOrders();
 }

@@ -1,4 +1,6 @@
-class ProductService
+using OrderManageMent.Interfaces;
+
+class ProductService : IProductService
 {
     private readonly List<Product> products = new()
     {
