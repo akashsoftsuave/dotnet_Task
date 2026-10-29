@@ -1,0 +1,1 @@
+dotnet test .\OrderManageMent\Test\OrderManagement.Tests\OrderManagement.Tests.csproj
