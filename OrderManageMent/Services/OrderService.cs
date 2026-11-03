@@ -18,19 +18,17 @@ class OrderService : IOrderService
             return null;
         }
 
-        foreach (OrderItem item in items)
+        bool allValid = items.All(item =>
         {
             Product? product = productService.FindById(item.ProductId);
-            if (product == null || item.Quantity <= 0 || product.StockQuantity < item.Quantity)
-            {
-                return null;
-            }
+            return product != null && item.Quantity > 0 && product.StockQuantity >= item.Quantity;
+        });
+        if (!allValid)
+        {
+            return null;
         }
 
-        foreach (OrderItem item in items)
-        {
-            productService.TryReduceStock(item.ProductId, item.Quantity);
-        }
+        items.ForEach(item => productService.TryReduceStock(item.ProductId, item.Quantity));
 
         var order = new Orders
         {

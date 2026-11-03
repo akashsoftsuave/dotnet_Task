@@ -101,10 +101,8 @@ class ConsoleUI
             }
 
             Console.WriteLine("Available products:");
-            foreach (Product p in available)
-            {
-                Console.WriteLine($"{p.ProductId}. {p.Name} - Price: {p.Price} - Stock: {p.StockQuantity}");
-            }
+            available.ForEach(p =>
+                Console.WriteLine($"{p.ProductId}. {p.Name} - Price: {p.Price} - Stock: {p.StockQuantity}"));
 
             Console.WriteLine("Enter Product ID");
             int productId = int.TryParse(Console.ReadLine(), out int parsedProduct) ? parsedProduct : 0;
@@ -164,14 +162,12 @@ class ConsoleUI
         {
             Console.WriteLine("No orders yet.");
         }
-        foreach (Orders o in orders)
+        orders.ForEach(o =>
         {
             string name = customerService.FindById(o.CustomerId)?.CustomerName ?? "Unknown";
             Console.WriteLine($"Order {o.OrderId} (Customer {o.CustomerId} - {name}) - Total: {o.TotalPrice}");
-            foreach (OrderItem i in o.Items)
-            {
-                Console.WriteLine($"   Product {i.ProductId} x {i.Quantity} @ {i.UnitPrice}");
-            }
-        }
+            o.Items.ForEach(i =>
+                Console.WriteLine($"   Product {i.ProductId} x {i.Quantity} @ {i.UnitPrice}"));
+        });
     }
 }

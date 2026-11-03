@@ -50,10 +50,13 @@ public class ProductServiceTests
     [Fact]
     public void GetAvailableProducts_ReturnsThreeProducts()
     {
+        // Arrange
         object service = Reflect.New("ProductService");
 
+        // Act
         var result = (List<Product>)Reflect.Call(service, "GetAvailableProducts")!;
 
+        // Assert
         Assert.Equal(3, result.Count);
     }
 
